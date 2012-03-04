@@ -219,7 +219,15 @@ td { vertical-align: top; }
    ========================================================================== */
 
 
-
+body {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1280px;
+}
+body.rand1 { background-image:url('../img/background1.jpg'); }
+body.rand2 { background-image:url('../img/background2.jpg'); }
+body.rand3 { background-image:url('../img/background3.jpg'); }
+body.rand4 { background-image:url('../img/background4.jpg'); }
 
 
 
