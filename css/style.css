@@ -229,7 +229,15 @@ body.rand2 { background-image:url('../img/background2.jpg'); }
 body.rand3 { background-image:url('../img/background3.jpg'); }
 body.rand4 { background-image:url('../img/background4.jpg'); }
 
+.box {
+	background-color: white;
+	opacity: 0.6;
+}
 
+.box,.header {
+	background-color: white;
+	opacity: 0.8;
+}
 
 
 
