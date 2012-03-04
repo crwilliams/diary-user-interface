@@ -1,0 +1,8 @@
+The files in this directory are all used under a Creative Commons licence, as follows:
+
+File		Owner		Owner URL						Licence
+background1.jpg	Dene' Miles	http://www.flickr.com/photos/denemiles/3970279665	http://creativecommons.org/licenses/by-sa/2.0/
+background2.jpg	xaviermom	http://www.flickr.com/photos/mysportsshots/6953670431	http://creativecommons.org/licenses/by-nc/2.0/
+background3.jpg	Anirudh Koul	http://www.flickr.com/photos/anirudhkoul/3780195067	http://creativecommons.org/licenses/by-nc/2.0/
+background4.jpg	Éole		http://www.flickr.com/photos/eole/3205600065		http://creativecommons.org/licenses/by-nc-sa/2.0/
+
