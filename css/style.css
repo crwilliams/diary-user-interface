@@ -234,13 +234,11 @@ body.rand4 { background-image:url('../img/background4.jpg'); }
 }
 
 .box .header {
-	background-color: white;
-	opacity: 0.9;
+	background: rgba(255,255,255,0.9);
 }
 
 .box .content {
-	background-color: white;
-	opacity: 0.6;
+	background: rgba(255,255,255,0.6);
 }
 
 .sidebox {
@@ -292,6 +290,7 @@ footer {
 	text-align: center;
 	position: absolute;
 	bottom: 0px;
+	color: white;
 }
 
 footer ul {
@@ -312,6 +311,10 @@ footer li.first:before {
 	content: "";
 }
 
+footer a {
+	color: white;
+	text-decoration: none;
+}
 
 
 
