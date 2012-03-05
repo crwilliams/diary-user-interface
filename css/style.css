@@ -223,6 +223,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	width: 1280px;
+	font-family: Georgia;
 }
 /*51626F*/
 body.rand1 { background: #343434 url('../img/background1.jpg') no-repeat; }
@@ -240,6 +241,25 @@ body.rand4 { background: #343434 url('../img/background4.jpg') no-repeat; }
 
 .box .content {
 	background: rgba(255,255,255,0.6);
+}
+
+h1 {
+	display: inline;
+	padding: 6px;
+	font-size: 2.0em;
+}
+
+.mainbox .right {
+	float: right;
+}
+
+.content {
+	font-size: 0.8em;
+}
+
+.header {
+	font-size: 0.9em;
+	padding: 3px;
 }
 
 .sidebox {
@@ -266,7 +286,6 @@ body.rand4 { background: #343434 url('../img/background4.jpg') no-repeat; }
 
 .mainbox .header {
 	height: 40px;
-	font-size: 2em;
 }
 
 .mainbox .content {
@@ -292,6 +311,8 @@ footer {
 	position: absolute;
 	bottom: 0px;
 	color: white;
+	font-size: 0.8em;
+	padding-bottom: 5px;
 }
 
 footer ul {
