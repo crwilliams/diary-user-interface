@@ -215,7 +215,7 @@ td { vertical-align: top; }
 
 
 /* ==|== primary styles =====================================================
-   Author:
+   Author: Colin Williams
    ========================================================================== */
 
 
@@ -230,17 +230,87 @@ body.rand3 { background-image:url('../img/background3.jpg'); }
 body.rand4 { background-image:url('../img/background4.jpg'); }
 
 .box {
+	position: fixed;
+}
+
+.box .header {
+	background-color: white;
+	opacity: 0.9;
+}
+
+.box .content {
 	background-color: white;
 	opacity: 0.6;
 }
 
-.box,.header {
-	background-color: white;
-	opacity: 0.8;
+.sidebox {
+	width: 200px;
+	height: 150px;
+	left: 20px;
 }
 
+.sidebox .header {
+	height: 20px;
+}
 
+.sidebox .content {
+	height: 130px;
+	overflow-y: scroll;
+}
 
+.mainbox {
+	width: 1020px;
+	left: 240px;
+	top: 190px;
+	bottom: 80px;
+}
+
+.mainbox .header {
+	height: 40px;
+	font-size: 2em;
+}
+
+.mainbox .content {
+	height: 100%;
+	overflow-y: scroll;
+}
+
+#calendar-search {
+	top: 20px;
+}
+
+#department-search {
+	top: 190px;
+}
+
+#location-search {
+	top: 360px;
+}
+
+footer {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	bottom: 0px;
+}
+
+footer ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+footer li {
+	display: inline;
+}
+
+footer li:before {
+	content: " | ";
+}
+
+footer li.first:before {
+	content: "";
+}
 
 
 
