@@ -224,10 +224,11 @@ body {
 	margin-right: auto;
 	width: 1280px;
 }
-body.rand1 { background-image:url('../img/background1.jpg'); }
-body.rand2 { background-image:url('../img/background2.jpg'); }
-body.rand3 { background-image:url('../img/background3.jpg'); }
-body.rand4 { background-image:url('../img/background4.jpg'); }
+/*51626F*/
+body.rand1 { background: #343434 url('../img/background1.jpg') no-repeat; }
+body.rand2 { background: #343434 url('../img/background2.jpg') no-repeat; }
+body.rand3 { background: #343434 url('../img/background3.jpg') no-repeat; }
+body.rand4 { background: #343434 url('../img/background4.jpg') no-repeat; }
 
 .box {
 	position: fixed;
@@ -242,9 +243,9 @@ body.rand4 { background-image:url('../img/background4.jpg'); }
 }
 
 .sidebox {
-	width: 200px;
+	width: 160px;
 	height: 150px;
-	left: 20px;
+	left: 210px;
 }
 
 .sidebox .header {
@@ -257,9 +258,9 @@ body.rand4 { background-image:url('../img/background4.jpg'); }
 }
 
 .mainbox {
-	width: 1020px;
-	left: 240px;
-	top: 190px;
+	width: 680px;
+	right: 210px;
+	top: 340px;
 	bottom: 80px;
 }
 
@@ -274,15 +275,15 @@ body.rand4 { background-image:url('../img/background4.jpg'); }
 }
 
 #calendar-search {
-	top: 20px;
+	top: 170px;
 }
 
 #department-search {
-	top: 190px;
+	top: 340px;
 }
 
 #location-search {
-	top: 360px;
+	top: 510px;
 }
 
 footer {
