@@ -220,16 +220,21 @@ td { vertical-align: top; }
 
 
 body {
-	margin-left: auto;
-	margin-right: auto;
-	width: 1280px;
 	font-family: Georgia;
+	overflow: hidden;
 }
+
+div[role='main'] {
+	margin: 0px auto;
+	width: 1280px;
+	height:1000px;
+}
+
 /*51626F*/
-body.rand1 { background: #343434 url('../img/background1.jpg') no-repeat; }
-body.rand2 { background: #343434 url('../img/background2.jpg') no-repeat; }
-body.rand3 { background: #343434 url('../img/background3.jpg') no-repeat; }
-body.rand4 { background: #343434 url('../img/background4.jpg') no-repeat; }
+body.rand1 div[role='main'] { background: #343434 url('../img/background1.jpg') no-repeat; }
+body.rand2 div[role='main'] { background: #343434 url('../img/background2.jpg') no-repeat; }
+body.rand3 div[role='main'] { background: #343434 url('../img/background3.jpg') no-repeat; }
+body.rand4 div[role='main'] { background: #343434 url('../img/background4.jpg') no-repeat; }
 
 .box {
 	position: fixed;
