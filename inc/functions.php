@@ -35,6 +35,7 @@ function renderPage($title, $description, $header, $content, $footer)
 <?php echo $header ?>
   </header>
   <div role="main">
+	<img id='bg' src='img/background<?php echo $i ?>.jpg' />
 <?php echo $content ?>
   </div>
   <footer>
