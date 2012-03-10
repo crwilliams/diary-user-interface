@@ -68,4 +68,180 @@ function renderPage($title, $description, $header, $content, $footer)
 </html>
 <?
 }
+
+/**
+ * Get the location of an event.
+ *
+ */
+function getPlaces(&$places, $event)
+{
+	if( $event->has( "event:place" ) )
+	{
+		foreach( $event->all( "event:place" ) as $place )
+		{
+			$site = getSite($place);
+			if($site != null)
+			{
+				$places[md5((string)$site)] = $site->label();
+			}
+		}
+	}
+}
+
+/**
+ * Print a drop-down box to select from a set of values.
+ *
+ */
+function printOptionTree($values, $id, $showAllString, $processOptions = null, $graph = null) {
+	asort($values);
+	print "<select id='$id' onchange='showCats()'>\n";
+	print "\t<option value='event'>($showAllString)</option>\n";
+	if($processOptions == null) {
+		foreach($values as $key => $name) {
+			print "\t<option value='$key'>$name</option>\n";
+		}
+	} else {
+		$processOptions($graph, $values);
+	}
+	print "</select>\n";
+}
+
+/**
+ * Print a set of options representing the organisational structure.
+ *
+ */
+function printOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
+	if($node == null) {
+		$orgtree = getOrganisationTree($graph->resource("http://id.southampton.ac.uk/"), array_keys($values));
+		printOrganisationTreeOptions($graph, $values, $orgtree[md5('http://id.southampton.ac.uk/')]);
+	}
+	if(!isset($node['children'])) {
+		return;
+	}
+	foreach($node['children'] as $key => $d) {
+		print "\t<option value='$key'>";
+		for($i = 0; $i < $depth; $i++) {
+			print "- ";
+		}
+		print $d['name']."</option>\n";
+		printOrganisationTreeOptions($graph, $values, $d, $depth + 1);
+	}
+}
+
+/**
+ * Get the organisation tree, rooted at the given node, filtered according to the filter.
+ *
+ */
+function getOrganisationTree($node, $filter)
+{
+	$tree = array();
+	foreach($node->all("http://www.w3.org/ns/org#hasSubOrganization") as $child)
+	{
+		$subtree = getOrganisationTree($child, $filter);
+		if(count($subtree) > 0)
+		{
+			foreach($subtree as $k => $v)
+			{
+				$tree[md5((string)$node)]['children'][$k] = $v;
+			}
+		}
+	}
+	if(count($tree) > 0 || in_array(md5((string)$node), $filter))
+	{
+		@uasort($tree[md5((string)$node)]['children'], 'sortOrgTree');
+		$tree[md5((string)$node)]['name'] = $node->label();
+	}
+	return $tree;
+}
+
+/**
+ * Compare elements in the organisation tree.
+ *
+ */
+function sortOrgTree($a, $b) {
+	if($a['name'] == $b['name']) return 0;
+	return ($a['name'] < $b['name']) ? -1 : 1;
+}
+
+/**
+ * Get the organisers of an event.
+ *
+ */
+function getOrganisers(&$organisers, $event)
+{
+	if( $event->has( "event:agent" ) )
+	{
+		foreach( $event->all( "event:agent" ) as $agent )
+		{
+			if(!$agent->isType("http://www.w3.org/ns/org#Organization"))
+			{
+				continue;
+			}
+			$organisers[md5((string)$agent)] = $agent->label();
+			while($agent->has("-http://www.w3.org/ns/org#hasSubOrganization"))
+			{
+				$agent = $agent->get("-http://www.w3.org/ns/org#hasSubOrganization");
+				$organisers[md5((string)$agent)] = $agent->label();
+			}
+		}
+	}
+}
+
+function loadGraph(&$organisers, &$places)
+{
+	require_once( "/var/wwwsites/phplib/arc/ARC2.php" );
+	require_once( "/var/wwwsites/phplib/Graphite.php" );
+	$graph = Graphite::thaw( "/home/diary/var/data.php" );
+	
+	$graph->cacheDir("/home/diary/diary.soton.ac.uk/cache");
+
+	$graph->ns( "event", "http://purl.org/NET/c4dm/event.owl#" );
+	$graph->ns( "tl", "http://purl.org/NET/c4dm/timeline.owl#" );
+
+	foreach($graph->allOfType("event:Event") as $event)
+	{
+		if($event->has("event:time"))
+		{
+			foreach($event->all("event:time") as $time)
+			{
+				if($time->has("tl:at"))
+				{
+					$events[$time->getString("tl:at")]["0"][] = $time;
+				}
+				if($time->has("tl:start"))
+				{
+					$start = $time->getString("tl:start");
+					$events[substr($time->getString("tl:start"), 0, 10)][substr($time->getString("tl:start"), 11, 5)][] = $time;
+					if($time->has("tl:end"))
+					{
+						$end = $time->getString("tl:end");
+					}
+				}
+			}
+		}
+	}
+
+	ksort($events);
+
+	foreach($events as $date => $dayevents)
+	{
+		if($date < date('Y-m-d'))
+			continue;
+		echo "<div class='day'>\n";
+		echo "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
+		ksort($dayevents);
+		foreach($dayevents as $time => $timeevents)
+		{
+			foreach($timeevents as $eventtime)
+			{
+				formatEvent($eventtime, $date);
+				getOrganisers($organisers, $eventtime->get("-event:time"));
+				getPlaces($places, $eventtime->get("-event:time"));
+			}
+		}
+		echo "</div>\n";
+	}
+
+	return $graph;
+}
 ?>
