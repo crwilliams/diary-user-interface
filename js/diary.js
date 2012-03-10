@@ -77,6 +77,11 @@ function filter() {
 			$(this).hide();
 		}
 	});
+	if(selOrg != '' || selPlace != '') {
+		$('#main').addClass('full');
+	} else {
+		$('#main').removeClass('full');
+	}
 }
 
 function toggleEvent(e) {
