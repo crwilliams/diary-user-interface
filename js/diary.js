@@ -82,6 +82,24 @@ function filter() {
 	} else {
 		$('#main').removeClass('full');
 	}
+
+	$('#org li a').each(function(index, value) {
+		$(value).removeClass('selected');
+	});
+	if(selOrg == '') {
+		$('a#all-org').addClass('selected');
+	} else {
+		$('a#'+selOrg).addClass('selected');
+	}
+
+	$('#place li a').each(function(index, value) {
+		$(value).removeClass('selected');
+	});
+	if(selPlace == '') {
+		$('a#all-place').addClass('selected');
+	} else {
+		$('a#'+selPlace).addClass('selected');
+	}
 }
 
 function toggleEvent(e) {

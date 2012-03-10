@@ -469,6 +469,10 @@ h3 {
 	position: relative;
 }
 
+.selected {
+	font-weight: bold;
+}
+
 
 
 /* ==|== media queries ======================================================

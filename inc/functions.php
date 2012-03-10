@@ -117,7 +117,7 @@ function getOptionTree($values, $id, $showAllString, $processOptions = null, $gr
 	asort($values);
 	$str = "";
 	$str .= "<ul id='$id'>\n";
-	$str .= "\t<li><a href='#'>$showAllString</a></li>\n";
+	$str .= "\t<li><a href='#' id='all-$id'>$showAllString</a></li>\n";
 	if($processOptions == null) {
 		foreach($values as $key => $name) {
 			$str .= "\t<li><a href='#' id='$key'>$name</a></li>\n";
