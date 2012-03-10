@@ -49,6 +49,7 @@ function renderPage($title, $description, $header, $content, $footer)
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+  <script src="js/jquery.ba-hashchange.min.js"></script>
 
   <!-- scripts concatenated and minified via build script -->
   <script src="js/plugins.js"></script>
@@ -82,7 +83,7 @@ function getPlaces(&$places, $event)
 			$site = getSite($place);
 			if($site != null)
 			{
-				$places[md5((string)$site)] = $site->label();
+				$places[sid((string)$site)] = $site->label();
 			}
 		}
 	}
@@ -116,7 +117,7 @@ function getOptionTree($values, $id, $showAllString, $processOptions = null, $gr
 	asort($values);
 	$str = "";
 	$str .= "<ul id='$id'>\n";
-	$str .= "\t<li><a href='#' id='event'>$showAllString</a></li>\n";
+	$str .= "\t<li><a href='#'>$showAllString</a></li>\n";
 	if($processOptions == null) {
 		foreach($values as $key => $name) {
 			$str .= "\t<li><a href='#' id='$key'>$name</a></li>\n";
@@ -136,7 +137,7 @@ function getOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
 	$str = "";
 	if($node == null) {
 		$orgtree = getOrganisationTree($graph->resource("http://id.southampton.ac.uk/"), array_keys($values));
-		$str .= getOrganisationTreeOptions($graph, $values, $orgtree[md5('http://id.southampton.ac.uk/')]);
+		$str .= getOrganisationTreeOptions($graph, $values, $orgtree[sid('http://id.southampton.ac.uk/')]);
 	}
 	if(!isset($node['children'])) {
 		return $str;
@@ -166,14 +167,14 @@ function getOrganisationTree($node, $filter)
 		{
 			foreach($subtree as $k => $v)
 			{
-				$tree[md5((string)$node)]['children'][$k] = $v;
+				$tree[sid((string)$node)]['children'][$k] = $v;
 			}
 		}
 	}
-	if(count($tree) > 0 || in_array(md5((string)$node), $filter))
+	if(count($tree) > 0 || in_array(sid((string)$node), $filter))
 	{
-		@uasort($tree[md5((string)$node)]['children'], 'sortOrgTree');
-		$tree[md5((string)$node)]['name'] = $node->label();
+		@uasort($tree[sid((string)$node)]['children'], 'sortOrgTree');
+		$tree[sid((string)$node)]['name'] = $node->label();
 	}
 	return $tree;
 }
@@ -201,11 +202,11 @@ function getOrganisers(&$organisers, $event)
 			{
 				continue;
 			}
-			$organisers[md5((string)$agent)] = $agent->label();
+			$organisers[sid((string)$agent)] = $agent->label();
 			while($agent->has("-http://www.w3.org/ns/org#hasSubOrganization"))
 			{
 				$agent = $agent->get("-http://www.w3.org/ns/org#hasSubOrganization");
-				$organisers[md5((string)$agent)] = $agent->label();
+				$organisers[sid((string)$agent)] = $agent->label();
 			}
 		}
 	}
@@ -484,6 +485,11 @@ function getEventAgents($event, $filter=null)
 		}
 	}
 	return $agents;
+}
+
+function sid($str)
+{
+	return strtolower(preg_replace('/[^A-Za-z0-9]/', '-', str_replace('http://id.southampton.ac.uk/', '', $str)));
 }
 
 ?>
