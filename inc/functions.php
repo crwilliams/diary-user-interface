@@ -268,4 +268,222 @@ function loadGraph(&$organisers, &$places, &$events)
 
 	return $graph;
 }
+
+function getEventListings($events)
+{
+	$str = "";
+	foreach($events as $date => $dayevents)
+	{
+		if($date < date('Y-m-d'))
+			continue;
+		$str .= "<div class='day'>\n";
+		$str .= "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
+		ksort($dayevents);
+		$str .= getEventListingsDay($dayevents, $date);
+		$str .= "</div>\n";
+	}
+	return $str;
+}
+
+function getEventListingsDay($dayevents, $date)
+{
+	$str = "";
+	foreach($dayevents as $time => $timeevents)
+	{
+		foreach($timeevents as $eventtime)
+		{
+			$str .= formatEvent($eventtime, $date);
+			$str .= getOrganisers($organisers, $eventtime->get("-event:time"));
+			$str .= getPlaces($places, $eventtime->get("-event:time"));
+		}
+	}
+	return $str;
+}
+
+/**
+ * Format a single event.
+ *
+ */
+function formatEvent($time, $date)
+{
+	$str = "";
+	$event = $time->get("-event:time");
+	$organisers = array();
+	getOrganisers($organisers, $event);
+	$places = array();
+	getPlaces($places, $event);
+
+	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($types))." ".implode(" ", array_keys($places))."'>\n";
+	$str .= "\t<h3>".$event->label()."</h3>\n";
+	$str .= "\t<div class='event-info'>\n";
+	if( $event->has( "event:homepage" ) )
+	{
+		$str .= "\t\t<a href='".$event->get( "event:homepage" )."'>Visit event homepage</a>\n";
+	}
+	if( $time->has( "tl:start" ) && substr($time->getString("tl:start"), 0, 10) == $date )
+	{
+		$str .= "\t\t<div>";
+		$str .= formatTime($time->getString( "tl:start" ), $date);
+		if( $time->has( "tl:end" ) )
+		{
+			$str .= " - ".formatTime($time->getString( "tl:end" ), $date);
+		}
+		$str .= "</div>\n";
+	}
+	getEventPlaces($event, "Place");
+	getEventPlaces($event, "Additional Place Info");
+	$organisers = getEventAgents($event, "Organiser");
+	if(count($organisers) > 0)
+	{
+		sort($organisers);
+		$str .= "\t\t<div class='organisers'>Organised by: ";
+		foreach($organisers as $organiser)
+		{
+			$str .= $organiser." ";
+		}
+		$str .= "</div>\n";
+	}
+	$str .= "\t</div>\n";
+	$str .= "\t<div style='clear:left'></div>\n";
+	$speakers = getEventAgents($event, "Speaker");
+	if(count($speakers) > 0)
+	{
+		$str .= "\t<div class='speakers'>Speaker".((count($speakers) > 1) ? "s" : "").": ";
+		foreach(getEventAgents($event, "Speaker") as $speaker)
+		{
+			$str .= $speaker." ";
+		}
+		$str .= "</div>\n";
+	}
+	if( $event->has( "dct:description" ) )
+	{
+		$str .= "\t<div class='description'>".$event->getString( "dct:description" )."</div>\n";
+	}
+	$str .= "\t<div style='clear:both'></div>\n";
+	$str .= "</div>\n";
+	return $str;
+}
+
+/**
+ * Format a time.
+ *
+ */
+function formatTime($time, $date) {
+	if(substr($time, 0, 10) != $date)
+	{
+		return substr($time, 0, 10)." ".substr($time, 11, 5);
+	}
+	return substr($time, 11, 5);
+}
+
+/**
+ * Get all places associated with an event.
+ *
+ */
+function getEventPlaces($event, $filter=null)
+{
+	$str = "";
+	if( $event->has( "event:place" ) )
+	{
+		foreach( $event->all( "event:place" ) as $place )
+		{
+			if($place->isType("http://vocab.deri.ie/rooms#Room") || $place->isType("http://vocab.deri.ie/rooms#Building") || $place->isType("http://www.w3.org/ns/org#Site"))
+				$type = "Place";
+			else
+				$type = "Additional Place Info";
+			if(!is_null($filter) && $filter != $type)
+				continue;
+			$typel = $type.": ";
+			if($type == "Place")
+			{
+				$typel = "at ";
+			}
+			elseif($type == "Additional Place Info")
+			{
+				$style = "";
+			}
+			if($place->label() == '[NULL]')
+			{
+				$str .= "\t\t<div>$typel".$place->link()."</div>\n";
+			}
+			else
+			{
+				$str .= "\t\t<div>$typel".getPlaceLabel($place)."</div>\n";
+			}
+		}
+	}
+	return $str;
+}
+
+function getPlaceLabel($place)
+{
+	$str = "";
+	// Try to get a rdfs:label which is not simply the building/room number.
+	foreach($place->all("rdfs:label") as $label)
+	{
+		if(!preg_match('/^[0-9]+[A-Z] \/ [0-9]+$/', $label))
+		{
+			if(substr($place, 0, 34) == 'http://id.southampton.ac.uk/event/')
+				$str = $label;
+			else
+				$str = "<a href='".$place."'>" . $label . "</a>";
+		}
+	}
+	// If that fails, use any label.
+	if($str == "")
+	{
+		if(substr($place, 0, 34) == 'http://id.southampton.ac.uk/event/')
+			$str = $place->label();
+		else
+			$str = "<a href='".$place."'>" . $place->label() . "</a>";
+	}
+	if($place->has("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within"))
+	{
+		$within = $place->get("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within");
+		$str .= ", ".getPlaceLabel($within);
+	}
+	return $str;
+}
+
+/**
+ * Get the agents related to an event.
+ *
+ */
+function getEventAgents($event, $filter=null)
+{
+	$agents = array();
+	if( ! $event->has( "event:agent" ) ) { return $agents; }
+
+	foreach( $event->all( "event:agent" ) as $agent )
+	{
+		if($agent->isType("http://www.w3.org/ns/org#Organization"))
+		{
+			$type = "Organiser";
+		}
+		else
+		{
+			$type = "Speaker";
+		}
+
+		if(!is_null($filter) && $filter != $type) { continue; }
+
+		if( !$agent->hasLabel() )
+		{
+			$agents[] = $agent->link();
+		}
+		else
+		{
+			if($agent->has("foaf:homepage"))
+			{
+				$agents[] = "<a href='".$agent->get("foaf:homepage")."'>".$agent->label()."</a>";
+			}
+			else
+			{
+				$agents[] = $agent->label();
+			}
+		}
+	}
+	return $agents;
+}
+
 ?>
