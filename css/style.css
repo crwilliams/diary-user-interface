@@ -392,12 +392,18 @@ table.ui-datepicker-calendar {
 
 .ui-datepicker-header .ui-datepicker-prev {
 	position: absolute;
-	right: 20px;
+	right: 30px;
 }
 
 .ui-datepicker-header .ui-datepicker-next {
 	position: absolute;
 	right: 0px;
+}
+
+.ui-datepicker-title, .ui-datepicker-header .ui-datepicker-prev, .ui-datepicker-header .ui-datepicker-next, #alldates {
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 0px;
 }
 
 ul#org,ul#place {
@@ -407,11 +413,17 @@ ul#org,ul#place {
 	list-style: none;
 }
 
-ul a,ul a:hover,ul a:visited {
+.sidebox a,.sidebox a:hover,.sidebox a:visited {
 	color: #333333;
 	text-decoration: none;
 }
 
+#alldates {
+	position: absolute;
+	bottom: -3px;
+	right: 0px;
+	margin: 0px;
+}
 
 
 
