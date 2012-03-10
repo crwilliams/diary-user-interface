@@ -92,40 +92,44 @@ function getPlaces(&$places, $event)
  * Print a drop-down box to select from a set of values.
  *
  */
-function printOptionTree($values, $id, $showAllString, $processOptions = null, $graph = null) {
+function getOptionTree($values, $id, $showAllString, $processOptions = null, $graph = null) {
 	asort($values);
-	print "<select id='$id' onchange='showCats()'>\n";
-	print "\t<option value='event'>($showAllString)</option>\n";
+	$str = "";
+	$str .= "<select id='$id' onchange='showCats()'>\n";
+	$str .= "\t<option value='event'>($showAllString)</option>\n";
 	if($processOptions == null) {
 		foreach($values as $key => $name) {
-			print "\t<option value='$key'>$name</option>\n";
+			$str .= "\t<option value='$key'>$name</option>\n";
 		}
 	} else {
-		$processOptions($graph, $values);
+		$str .= $processOptions($graph, $values);
 	}
-	print "</select>\n";
+	$str .= "</select>\n";
+	return $str;
 }
 
 /**
  * Print a set of options representing the organisational structure.
  *
  */
-function printOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
+function getOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
+	$str = "";
 	if($node == null) {
 		$orgtree = getOrganisationTree($graph->resource("http://id.southampton.ac.uk/"), array_keys($values));
-		printOrganisationTreeOptions($graph, $values, $orgtree[md5('http://id.southampton.ac.uk/')]);
+		$str .= getOrganisationTreeOptions($graph, $values, $orgtree[md5('http://id.southampton.ac.uk/')]);
 	}
 	if(!isset($node['children'])) {
-		return;
+		return $str;
 	}
 	foreach($node['children'] as $key => $d) {
-		print "\t<option value='$key'>";
+		$str .= "\t<option value='$key'>";
 		for($i = 0; $i < $depth; $i++) {
-			print "- ";
+			$str .= "- ";
 		}
-		print $d['name']."</option>\n";
-		printOrganisationTreeOptions($graph, $values, $d, $depth + 1);
+		$str .= $d['name']."</option>\n";
+		$str .= getOrganisationTreeOptions($graph, $values, $d, $depth + 1);
 	}
+	return $str;
 }
 
 /**
@@ -227,19 +231,19 @@ function loadGraph(&$organisers, &$places)
 	{
 		if($date < date('Y-m-d'))
 			continue;
-		echo "<div class='day'>\n";
-		echo "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
+		//echo "<div class='day'>\n";
+		//echo "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
 		ksort($dayevents);
 		foreach($dayevents as $time => $timeevents)
 		{
 			foreach($timeevents as $eventtime)
 			{
-				formatEvent($eventtime, $date);
+				//formatEvent($eventtime, $date);
 				getOrganisers($organisers, $eventtime->get("-event:time"));
 				getPlaces($places, $eventtime->get("-event:time"));
 			}
 		}
-		echo "</div>\n";
+		//echo "</div>\n";
 	}
 
 	return $graph;
