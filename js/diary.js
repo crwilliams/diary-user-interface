@@ -122,11 +122,19 @@ function toggleEvent(e) {
 $(function() {
 	$( "#calendar-search div.content" ).datepicker({ beforeShowDay: unavailable, dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], firstDay: 1, onSelect: function(dateText, inst) { setDate(dateText); } });
 	$( "ul#org a" ).click(function(e) {
-		setOrg(e.target.id);
+		if(e.target.id == 'all-org') {
+			setOrg('');
+		} else {
+			setOrg(e.target.id);
+		}
 		return false;
 	});
 	$( "ul#place a" ).click(function(e) {
-		setPlace(e.target.id);
+		if(e.target.id == 'all-place') {
+			setPlace('');
+		} else {
+			setPlace(e.target.id);
+		}
 		return false;
 	});
 	$( "#alldates" ).click(function(e) {
