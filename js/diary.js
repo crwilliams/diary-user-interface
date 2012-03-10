@@ -30,7 +30,7 @@ function processHash() {
 		}
 	}
 	setHash();
-	
+	filter();
 }
 
 function setDate(str) {
@@ -61,6 +61,24 @@ function setHash() {
 		str += '/' + selDate;
 	window.location.hash = str.substring(1);
 }
+
+function filter() {
+	$('div.day').show();
+	$('div.event').hide();
+	$('div.event').each(function(index, value) {
+		if($(this).hasClass(selOrg) && $(this).hasClass(selPlace))
+		{
+			$(this).show();
+		}
+	});
+	$('div.day').each(function(index, value) {
+		if($(this).children().filter(':visible').size() == 1)
+		{
+			$(this).hide();
+		}
+	});
+}
+
 
 $(function() {
 	$( "#calendar-search div.content" ).datepicker({ beforeShowDay: unavailable, dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], firstDay: 1, onSelect: function(dateText, inst) { setDate(dateText); } });
