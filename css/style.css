@@ -289,6 +289,10 @@ h1 {
 	overflow-y: scroll;
 }
 
+.mainbox.full {
+	top: 130px;
+}
+
 .mainbox {
 	position: absolute;
 	top: 340px;
@@ -426,7 +430,7 @@ a,a:hover,a:visited {
 	margin: 0px;
 }
 
-h2,h3,.description {
+h3,.description {
 	margin-right: 20em;
 }
 
@@ -436,6 +440,7 @@ h2,h3,.description {
 
 h2 {
 	font-size: 1em;
+	background: rgba(0,0,0,0.2);
 }
 
 h3 {
