@@ -89,6 +89,26 @@ function getPlaces(&$places, $event)
 }
 
 /**
+ * Get the site that a place belongs to.
+ *
+ */
+function getSite($place)
+{
+	if($place->isType("http://www.w3.org/ns/org#Site"))
+	{
+		return $place;
+	}
+	else if($place->has("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within"))
+	{
+		return getSite($place->get("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within"));
+	}
+	else
+	{
+		return null;
+	}
+}
+
+/**
  * Print a drop-down box to select from a set of values.
  *
  */
