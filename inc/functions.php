@@ -115,16 +115,16 @@ function getSite($place)
 function getOptionTree($values, $id, $showAllString, $processOptions = null, $graph = null) {
 	asort($values);
 	$str = "";
-	$str .= "<select id='$id' onchange='showCats()'>\n";
-	$str .= "\t<option value='event'>($showAllString)</option>\n";
+	$str .= "<ul id='$id'>\n";
+	$str .= "\t<li value='event'>($showAllString)</li>\n";
 	if($processOptions == null) {
 		foreach($values as $key => $name) {
-			$str .= "\t<option value='$key'>$name</option>\n";
+			$str .= "\t<li><a href='#'>$name</a></li>\n";
 		}
 	} else {
 		$str .= $processOptions($graph, $values);
 	}
-	$str .= "</select>\n";
+	$str .= "</li>\n";
 	return $str;
 }
 
@@ -142,11 +142,11 @@ function getOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
 		return $str;
 	}
 	foreach($node['children'] as $key => $d) {
-		$str .= "\t<option value='$key'>";
+		$str .= "\t<li value='$key'>";
 		for($i = 0; $i < $depth; $i++) {
 			$str .= "- ";
 		}
-		$str .= $d['name']."</option>\n";
+		$str .= "<a href='#'>".$d['name']."</a></li>\n";
 		$str .= getOrganisationTreeOptions($graph, $values, $d, $depth + 1);
 	}
 	return $str;
