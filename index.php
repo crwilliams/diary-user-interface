@@ -18,9 +18,17 @@ $pagedescription = 'A Calendar Viewer';
 
 $organisers = array();
 $places = array();
-$graph = loadGraph($organisers, $places);
+$events = array();
+$graph = loadGraph($organisers, $places, $events);
+
+$eventdates = array();
+foreach(array_keys($events) as $d)
+{
+	$eventdates[] = '"'.(int)substr($d, 8, 2).'-'.(int)substr($d, 5, 2).'-'.(int)substr($d, 0, 4).'"';
+}
 
 $content = "";
+$content .= "<script>var availableDates = [".implode(',', $eventdates)."]</script>";
 $content .= "<div class='box sidebox' id='calendar-search'><div class='header'>Search by date</div><div class='content'></div></div>";
 $content .= "<div class='box sidebox' id='department-search'><div class='header'>Search by department</div><div class='content'>".getOptionTree($organisers, 'org', 'Show entire university', 'getOrganisationTreeOptions', $graph)."</div></div>";
 $content .= "<div class='box sidebox' id='location-search'><div class='header'>Search by location</div><div class='content'>".getOptionTree($places, 'place', 'Show all locations')."</div></div>";

@@ -211,7 +211,7 @@ function getOrganisers(&$organisers, $event)
 	}
 }
 
-function loadGraph(&$organisers, &$places)
+function loadGraph(&$organisers, &$places, &$events)
 {
 	require_once( "/var/wwwsites/phplib/arc/ARC2.php" );
 	require_once( "/var/wwwsites/phplib/Graphite.php" );
