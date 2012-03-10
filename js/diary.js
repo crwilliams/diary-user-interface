@@ -10,7 +10,7 @@ function unavailable(date) {
 var selDate = '';
 var selOrg = '';
 var selPlace = '';
-var fullhash = '';
+var fullhash = 'null';
 
 function processHash() {
 	var hashparts = fullhash.substring(1).split('/');
@@ -71,12 +71,18 @@ function filter() {
 			$(this).show();
 		}
 	});
+	availableDates = [];
 	$('div.day').each(function(index, value) {
 		if($(this).children().filter(':visible').size() == 1)
 		{
 			$(this).hide();
 		}
+		else
+		{
+			availableDates.push(this.id);
+		}
 	});
+	$( "#calendar-search div.content" ).datepicker('refresh');
 	if(selOrg != '' || selPlace != '') {
 		$('#main').addClass('full');
 	} else {
@@ -99,6 +105,12 @@ function filter() {
 		$('a#all-place').addClass('selected');
 	} else {
 		$('a#'+selPlace).addClass('selected');
+	}
+	if(selDate == '') {
+	} else {
+		var id = selDate.replace('-0', '-');
+		if(id[0] == '0') id = id.substring(1);
+		$('div#main div.content').scrollTop($('div#main div.content').scrollTop() + $('#'+id).position().top - 50);
 	}
 }
 
