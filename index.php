@@ -17,7 +17,7 @@ $pagetitle = 'Calendar';
 $pagedescription = 'A Calendar Viewer';
 
 $content = "";
-$content .= "<div class='box sidebox' id='calendar-search'><div class='header'>Search by date</div><div class='content'>".mklist()."</div></div>";
+$content .= "<div class='box sidebox' id='calendar-search'><div class='header'>Search by date</div><div class='content'></div></div>";
 $content .= "<div class='box sidebox' id='department-search'><div class='header'>Search by department</div><div class='content'>".mklist()."</div></div>";
 $content .= "<div class='box sidebox' id='location-search'><div class='header'>Search by location</div><div class='content'>".mklist()."</div></div>";
 $content .= "<div class='box mainbox' id='main'><div class='header'><h1>Events Calendar</h1><a class='right'>View all events</a></div><div class='content'>".mklist()."</div></div>";
