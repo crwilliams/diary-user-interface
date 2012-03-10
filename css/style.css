@@ -400,6 +400,19 @@ table.ui-datepicker-calendar {
 	right: 0px;
 }
 
+ul#org,ul#place {
+	margin:0 0 0 1em;
+	text-indent:-1em;
+	padding:3px;
+	list-style: none;
+}
+
+ul a,ul a:hover,ul a:visited {
+	color: #333333;
+	text-decoration: none;
+}
+
+
 
 
 
