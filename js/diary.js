@@ -79,6 +79,22 @@ function filter() {
 	});
 }
 
+function toggleEvent(e) {
+	var eventDiv;
+	if(e.target.localName == 'a') {
+		eventDiv = e.target.parentNode.parentNode;
+	} else {
+		eventDiv = e.target.parentNode;
+	}
+	if(eventDiv.children[1].children[0].innerText == 'Read more') {
+		eventDiv.children[1].children[0].innerText = 'Read less';
+		$(eventDiv.children[2]).show();
+	} else {
+		eventDiv.children[1].children[0].innerText = 'Read more';
+		$(eventDiv.children[2]).hide();
+	}
+	return false;
+}
 
 $(function() {
 	$( "#calendar-search div.content" ).datepicker({ beforeShowDay: unavailable, dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], firstDay: 1, onSelect: function(dateText, inst) { setDate(dateText); } });
@@ -94,17 +110,8 @@ $(function() {
 		setDate('');
 		return false;
 	});
-	$( ".expand-link" ).click(function(e) {
-		console.log(e);
-		if(e.target.innerText == 'Read more') {
-			e.target.innerText = 'Read less';
-			$(e.target.parentNode.parentNode.children[2]).show();
-		} else {
-			e.target.innerText = 'Read more';
-			$(e.target.parentNode.parentNode.children[2]).hide();
-		}
-		return false;
-	});
+	$( ".expand-link" ).click(toggleEvent);
+	$( ".event h3" ).click(toggleEvent);
 });
 
 $(window).hashchange( function(){
