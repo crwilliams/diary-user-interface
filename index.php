@@ -21,14 +21,8 @@ $places = array();
 $events = array();
 $graph = loadGraph($organisers, $places, $events);
 
-$eventdates = array();
-foreach(array_keys($events) as $d)
-{
-	$eventdates[] = '"'.(int)substr($d, 8, 2).'-'.(int)substr($d, 5, 2).'-'.(int)substr($d, 0, 4).'"';
-}
-
 $content = "";
-$content .= "<script>var availableDates = [".implode(',', $eventdates)."]</script>";
+$content .= "<script>var availableDates = []</script>";
 $content .= "<div class='box sidebox' id='calendar-search'><div class='header'>Search by date</div><div class='content'><a href='#' id='alldates'>View all events</a></div></div>";
 $content .= "<div class='box sidebox' id='department-search'><div class='header'>Search by department</div><div class='content'>".getOptionTree($organisers, 'org', 'All departments', 'getOrganisationTreeOptions', $graph)."</div></div>";
 $content .= "<div class='box sidebox' id='location-search'><div class='header'>Search by location</div><div class='content'>".getOptionTree($places, 'place', 'All locations')."</div></div>";
