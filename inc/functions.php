@@ -277,7 +277,7 @@ function getEventListings($events)
 	{
 		if($date < date('Y-m-d'))
 			continue;
-		$str .= "<div class='day'>\n";
+		$str .= "<div class='day' id='".date('j-n-Y', strtotime($date))."'>\n";
 		$str .= "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
 		ksort($dayevents);
 		$str .= getEventListingsDay($dayevents, $date);
