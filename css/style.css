@@ -309,7 +309,13 @@ h1 {
 }
 
 #calendar-search {
-	top: 170px;
+	top: 130px;
+	height: 190px;
+}
+
+#calendar-search .content {
+	overflow: hidden;
+	height: 170px;
 }
 
 #department-search {
@@ -353,8 +359,46 @@ footer a,footer a:hover,footer a:visited {
 	text-decoration: none;
 }
 
+.ui-datepicker-calendar td,.ui-datepicker-calendar th {
+	font-size: 0.8em;
+}
 
+.ui-datepicker-calendar td {
+	background-color: white;
+	color: #333333;
+	padding: 2px;
+	text-align: center;
+}
 
+table.ui-datepicker-calendar {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 3px;
+}
+
+.ui-datepicker-calendar td a,.ui-datepicker-calendar td a:hover,.ui-datepicker-calendar td a:visited {
+	color: #333333;
+	text-decoration: none;
+}
+
+.ui-datepicker-calendar td.ui-datepicker-unselectable {
+	background-color: #333333;
+	color: white;
+}
+
+.ui-datepicker-calendar td.ui-datepicker-unselectable.ui-datepicker-other-month {
+	background-color: inherit;
+}
+
+.ui-datepicker-header .ui-datepicker-prev {
+	position: absolute;
+	right: 20px;
+}
+
+.ui-datepicker-header .ui-datepicker-next {
+	position: absolute;
+	right: 0px;
+}
 
 
 
