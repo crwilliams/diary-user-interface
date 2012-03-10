@@ -306,6 +306,7 @@ h1 {
 .mainbox .content {
 	height: 100%;
 	overflow-y: scroll;
+	padding: 1em;
 }
 
 #calendar-search {
@@ -413,7 +414,7 @@ ul#org,ul#place {
 	list-style: none;
 }
 
-.sidebox a,.sidebox a:hover,.sidebox a:visited {
+a,a:hover,a:visited {
 	color: #333333;
 	text-decoration: none;
 }
@@ -425,6 +426,43 @@ ul#org,ul#place {
 	margin: 0px;
 }
 
+h2,h3,.description {
+	margin-right: 20em;
+}
+
+.description {
+	text-align: justify;
+}
+
+h2 {
+	font-size: 1em;
+}
+
+h3 {
+	font-size: 1.2em;
+
+}
+
+.event-info {
+	width: 18em;
+	float: right;
+}
+
+.event-more {
+	display: none;
+}
+
+.event-links {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 12em;
+	display: inline;
+}
+
+.event {
+	position: relative;
+}
 
 
 

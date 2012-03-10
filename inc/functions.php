@@ -314,16 +314,20 @@ function formatEvent($time, $date)
 	$places = array();
 	getPlaces($places, $event);
 
-	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($types))." ".implode(" ", array_keys($places))."'>\n";
-	$str .= "\t<h3>".$event->label()."</h3>\n";
-	$str .= "\t<div class='event-info'>\n";
+	$sid = sid($event);
+
+	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."'>\n";
+	$str .= "\t<h3>".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "event:homepage" ) )
 	{
-		$str .= "\t\t<a href='".$event->get( "event:homepage" )."'>Visit event homepage</a>\n";
+		$str .= " | <a href='".$event->get( "event:homepage" )."'>View event</a>";
 	}
+	$str .= "</div>\n";
+	$str .= "\t<div class='event-more' id='".$sid."'>\n";
+	$str .= "\t\t<div class='event-info'>\n";
 	if( $time->has( "tl:start" ) && substr($time->getString("tl:start"), 0, 10) == $date )
 	{
-		$str .= "\t\t<div>";
+		$str .= "\t\t\t<div>";
 		$str .= formatTime($time->getString( "tl:start" ), $date);
 		if( $time->has( "tl:end" ) )
 		{
@@ -337,19 +341,19 @@ function formatEvent($time, $date)
 	if(count($organisers) > 0)
 	{
 		sort($organisers);
-		$str .= "\t\t<div class='organisers'>Organised by: ";
+		$str .= "\t\t\t<div class='organisers'>Organised by: ";
 		foreach($organisers as $organiser)
 		{
 			$str .= $organiser." ";
 		}
 		$str .= "</div>\n";
 	}
-	$str .= "\t</div>\n";
-	$str .= "\t<div style='clear:left'></div>\n";
+	$str .= "\t\t</div>\n";
+	//$str .= "\t<div style='clear:left'></div>\n";
 	$speakers = getEventAgents($event, "Speaker");
 	if(count($speakers) > 0)
 	{
-		$str .= "\t<div class='speakers'>Speaker".((count($speakers) > 1) ? "s" : "").": ";
+		$str .= "\t\t<div class='speakers'>Speaker".((count($speakers) > 1) ? "s" : "").": ";
 		foreach(getEventAgents($event, "Speaker") as $speaker)
 		{
 			$str .= $speaker." ";
@@ -358,9 +362,10 @@ function formatEvent($time, $date)
 	}
 	if( $event->has( "dct:description" ) )
 	{
-		$str .= "\t<div class='description'>".$event->getString( "dct:description" )."</div>\n";
+		$str .= "\t\t<div class='description'>".$event->getString( "dct:description" )."</div>\n";
 	}
-	$str .= "\t<div style='clear:both'></div>\n";
+	$str .= "\t\t<div style='clear:both'></div>\n";
+	$str .= "\t</div>\n";
 	$str .= "</div>\n";
 	return $str;
 }

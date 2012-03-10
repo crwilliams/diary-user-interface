@@ -94,6 +94,17 @@ $(function() {
 		setDate('');
 		return false;
 	});
+	$( ".expand-link" ).click(function(e) {
+		console.log(e);
+		if(e.target.innerText == 'Read more') {
+			e.target.innerText = 'Read less';
+			$(e.target.parentNode.parentNode.children[2]).show();
+		} else {
+			e.target.innerText = 'Read more';
+			$(e.target.parentNode.parentNode.children[2]).hide();
+		}
+		return false;
+	});
 });
 
 $(window).hashchange( function(){
