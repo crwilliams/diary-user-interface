@@ -89,18 +89,18 @@ function filter() {
 		$(value).removeClass('selected');
 	});
 	if(selOrg == '') {
-		$('a#all-org').addClass('selected');
+		$('a#link-all-org').addClass('selected');
 	} else {
-		$('a#'+selOrg).addClass('selected');
+		$('a#link-'+selOrg).addClass('selected');
 	}
 
 	$('#place li a').each(function(index, value) {
 		$(value).removeClass('selected');
 	});
 	if(selPlace == '') {
-		$('a#all-place').addClass('selected');
+		$('a#link-all-place').addClass('selected');
 	} else {
-		$('a#'+selPlace).addClass('selected');
+		$('a#link-'+selPlace).addClass('selected');
 	}
 	if(selDate == '') {
 	} else {
