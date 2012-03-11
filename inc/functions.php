@@ -35,7 +35,7 @@ function renderPage($title, $description, $header, $content, $footer)
 <?php echo $header ?>
   </header>
   <div role="main">
-	<img id='bg' src='img/background<?php echo $i ?>.jpg' />
+	<img id='bg' src='img/background<?php echo $i ?>.jpg' alt='background image' />
 <?php echo $content ?>
   </div>
   <footer>
@@ -125,7 +125,7 @@ function getOptionTree($values, $id, $showAllString, $processOptions = null, $gr
 	} else {
 		$str .= $processOptions($graph, $values);
 	}
-	$str .= "</li>\n";
+	$str .= "</ul>\n";
 	return $str;
 }
 
