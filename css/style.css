@@ -295,7 +295,7 @@ h1 {
 
 .mainbox {
 	position: absolute;
-	top: 340px;
+	top: 330px;
 	left: 16%;
 	right: 16%;
 	padding-left: 170px;
@@ -315,20 +315,20 @@ h1 {
 
 #calendar-search {
 	top: 130px;
-	height: 190px;
+	height: 180px;
 }
 
 #calendar-search .content {
 	overflow: hidden;
-	height: 170px;
+	height: 160px;
 }
 
 #department-search {
-	top: 340px;
+	top: 330px;
 }
 
 #location-search {
-	top: 510px;
+	top: 500px;
 }
 
 footer {
