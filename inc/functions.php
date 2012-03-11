@@ -454,7 +454,7 @@ function getPlaceLabel($place)
 	if($place->has("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within"))
 	{
 		$within = $place->get("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within");
-		$str .= ", ".getPlaceLabel($within);
+		$str .= ",<br/>".getPlaceLabel($within);
 	}
 	return $str;
 }
