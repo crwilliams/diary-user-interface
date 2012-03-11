@@ -318,9 +318,9 @@ function formatEvent($time, $date)
 
 	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."'>\n";
 	$str .= "\t<h3>".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
-	if( $event->has( "event:homepage" ) )
+	if( $event->has( "foaf:homepage" ) )
 	{
-		$str .= " | <a href='".$event->get( "event:homepage" )."'>View event</a>";
+		$str .= " | <a href='".$event->get( "foaf:homepage" )."'>View event</a>";
 	}
 	$str .= "</div>\n";
 	$str .= "\t<div class='event-more' id='".$sid."'>\n";
