@@ -371,8 +371,11 @@ footer a,footer a:hover,footer a:visited {
 .ui-datepicker-calendar td {
 	background-color: white;
 	color: #333333;
-	padding: 2px;
 	text-align: center;
+}
+
+.ui-datepicker-calendar td a {
+	display: block;
 }
 
 table.ui-datepicker-calendar {
