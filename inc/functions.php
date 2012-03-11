@@ -117,10 +117,10 @@ function getOptionTree($values, $id, $showAllString, $processOptions = null, $gr
 	asort($values);
 	$str = "";
 	$str .= "<ul id='$id'>\n";
-	$str .= "\t<li><a href='#' id='all-$id'>$showAllString</a></li>\n";
+	$str .= "\t<li><a href='#' id='link-all-$id'>$showAllString</a></li>\n";
 	if($processOptions == null) {
 		foreach($values as $key => $name) {
-			$str .= "\t<li><a href='#' id='$key'>$name</a></li>\n";
+			$str .= "\t<li><a href='#' id='link-$key'>$name</a></li>\n";
 		}
 	} else {
 		$str .= $processOptions($graph, $values);
@@ -147,7 +147,7 @@ function getOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
 		for($i = 0; $i < $depth; $i++) {
 			$str .= "- ";
 		}
-		$str .= "<a href='#' id='$key'>".$d['name']."</a></li>\n";
+		$str .= "<a href='#' id='link-$key'>".$d['name']."</a></li>\n";
 		$str .= getOrganisationTreeOptions($graph, $values, $d, $depth + 1);
 	}
 	return $str;
