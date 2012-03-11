@@ -301,6 +301,7 @@ function getEventListingsDay($dayevents, $date)
 	return $str;
 }
 
+$eventcounter = 0;
 /**
  * Format a single event.
  *
@@ -316,7 +317,9 @@ function formatEvent($time, $date)
 
 	$sid = sid($time);
 
-	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."' itemscope itemtype='http://data-vocabulary.org/Event'>\n";
+	global $eventcounter;
+	if($eventcounter++ <= 14) { $featured = " featured"; } else { $featured = ""; }
+	$str .= "<div class='event $featured".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."' itemscope itemtype='http://data-vocabulary.org/Event'>\n";
 	$str .= "\t<h3 itemprop='summary'>".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "foaf:homepage" ) )
 	{
