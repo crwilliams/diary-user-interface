@@ -67,7 +67,7 @@ function filter() {
 	$('div.day').show();
 	$('div.event').hide();
 	$('div.event').each(function(index, value) {
-		if($(this).hasClass(selOrg) && $(this).hasClass(selPlace) && ($(this).hasClass('featured') || $($(this)[0].parentNode.parentNode.parentNode).hasClass('full')))
+		if($(this).hasClass(selOrg) && $(this).hasClass(selPlace) && ($(this).hasClass('featured') || $('body').hasClass('full')))
 		{
 			$(this).show();
 		}
@@ -77,7 +77,7 @@ function filter() {
 		if($(this).children().filter(':visible').size() == 1)
 		{
 			$(this).hide();
-			if(!$($(this)[0].parentNode.parentNode).hasClass('full'))
+			if(!$('body').hasClass('full'))
 			{
 				availableDates.push(this.id);
 			}
@@ -157,7 +157,7 @@ $(function() {
 	$( ".expand-link" ).click(toggleEvent);
 	$( ".event h3" ).click(toggleEvent);
 	$( ".view-events" ).click(function(e) {
-		if($('#main').hasClass('full')) {
+		if($('body').hasClass('full')) {
 			switchToHomepage();
 			selOrg = '';
 			selPlace = '';
@@ -170,13 +170,13 @@ $(function() {
 });
 
 function switchToHomepage() {
-	$('#main').removeClass('full');
+	$('body').removeClass('full');
 	$('#view-all')[0].innerText = 'View all events';
 	filter();
 }
 
 function switchToEventpage() {
-	$('#main').addClass('full');
+	$('body').addClass('full');
 	$('#view-all')[0].innerText = 'Back to homepage';
 	filter();
 }

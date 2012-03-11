@@ -289,7 +289,7 @@ h1 {
 	overflow-y: scroll;
 }
 
-.mainbox.full {
+.full .mainbox {
 	top: 130px;
 }
 
@@ -479,7 +479,7 @@ h3 {
 	font-weight: bold;
 }
 
-.mainbox.full .homepage-only {
+.full .homepage-only {
 	display: none;
 }
 
