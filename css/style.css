@@ -398,13 +398,16 @@ table.ui-datepicker-calendar {
 	background-color: inherit;
 }
 
-.ui-datepicker-header .ui-datepicker-prev {
+.ui-datepicker-header .ui-datepicker-prev, .ui-datepicker-header .ui-datepicker-next {
 	position: absolute;
+	cursor: pointer;
+}
+
+.ui-datepicker-header .ui-datepicker-prev {
 	right: 30px;
 }
 
 .ui-datepicker-header .ui-datepicker-next {
-	position: absolute;
 	right: 0px;
 }
 
