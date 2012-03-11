@@ -437,8 +437,12 @@ a,a:hover,a:visited {
 	margin: 0px;
 }
 
-h3,.description {
+.description {
 	margin-right: 35%;
+}
+
+h3 {
+	margin-right: 17em;
 }
 
 .description {
