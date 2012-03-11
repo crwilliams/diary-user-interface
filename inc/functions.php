@@ -314,13 +314,13 @@ function formatEvent($time, $date)
 	$places = array();
 	getPlaces($places, $event);
 
-	$sid = sid($event);
+	$sid = sid($time);
 
-	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."'>\n";
-	$str .= "\t<h3>".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
+	$str .= "<div class='event ".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."' itemscope itemtype='http://data-vocabulary.org/Event'>\n";
+	$str .= "\t<h3 itemprop='summary'>".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "foaf:homepage" ) )
 	{
-		$str .= " | <a href='".$event->get( "foaf:homepage" )."'>View event</a>";
+		$str .= " | <a href='".$event->get( "foaf:homepage" )."' itemprop='url'>View event</a>";
 	}
 	$str .= "</div>\n";
 	$str .= "\t<div class='event-more' id='".$sid."'>\n";
@@ -334,6 +334,11 @@ function formatEvent($time, $date)
 			$str .= " - ".formatTime($time->getString( "tl:end" ), $date);
 		}
 		$str .= "</div>\n";
+		$str .= "<span style='display:none' itemprop='startDate'>".$time->getString( "tl:start" )."</span>";
+		if( $time->has( "tl:end" ) )
+		{
+			$str .= "<span style='display:none' itemprop='endDate'>".$time->getString( "tl:end" )."</span>";
+		}
 	}
 	$str .= getEventPlaces($event, "Place");
 	$str .= getEventPlaces($event, "Additional Place Info");
@@ -362,7 +367,7 @@ function formatEvent($time, $date)
 	}
 	if( $event->has( "dct:description" ) )
 	{
-		$str .= "\t\t<div class='description'>".$event->getString( "dct:description" )."</div>\n";
+		$str .= "\t\t<div class='description' itemprop='description'>".$event->getString( "dct:description" )."</div>\n";
 	}
 	$str .= "\t\t<div style='clear:both'></div>\n";
 	$str .= "\t</div>\n";
