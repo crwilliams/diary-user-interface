@@ -88,13 +88,23 @@ function filter() {
 		}
 	});
 	$( "#calendar-search div.content" ).datepicker('refresh');
+
 	$('#org li a').each(function(index, value) {
 		$(value).removeClass('selected');
 	});
+
 	if(selOrg == '') {
 		$('a#link-all-org').addClass('selected');
+		$('#org li').each(function(index, value) {
+			$(value).show();
+		});
 	} else {
 		$('a#link-'+selOrg).addClass('selected');
+		$('#org li').each(function(index, value) {
+			$(value).hide();
+		});
+		$($('a#link-'+selOrg)[0].parentNode).show();
+		$($('a#link-all-org')[0].parentNode).show();
 	}
 
 	$('#place li a').each(function(index, value) {
@@ -102,8 +112,16 @@ function filter() {
 	});
 	if(selPlace == '') {
 		$('a#link-all-place').addClass('selected');
+		$('#place li').each(function(index, value) {
+			$(value).show();
+		});
 	} else {
 		$('a#link-'+selPlace).addClass('selected');
+		$('#place li').each(function(index, value) {
+			$(value).hide();
+		});
+		$($('a#link-'+selPlace)[0].parentNode).show();
+		$($('a#link-all-place')[0].parentNode).show();
 	}
 	if(selDate == '') {
 	} else {
