@@ -230,6 +230,7 @@ div[role='main'] {
 	position: relative;
 	margin: 0px auto;
 	max-width: 1280px;
+	min-width: 800px;
 	min-height: 620px;
 }
 
@@ -437,11 +438,20 @@ a,a:hover,a:visited {
 }
 
 h3,.description {
-	margin-right: 20em;
+	margin-right: 35%;
 }
 
 .description {
 	text-align: justify;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h2, h3 {
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 h2 {
@@ -450,12 +460,11 @@ h2 {
 }
 
 h3 {
-	font-size: 1.2em;
-
+	font-size: 1.5em;
 }
 
 .event-info {
-	width: 18em;
+	width: 30%;
 	float: right;
 }
 
@@ -465,9 +474,10 @@ h3 {
 
 .event-links {
 	position: absolute;
-	top: 0px;
+	top: 5px;
 	right: 0px;
-	width: 12em;
+	width: 15em;
+	text-align: right;
 	display: inline;
 }
 
