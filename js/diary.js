@@ -80,9 +80,7 @@ function filter() {
 	});
 	$( "#calendar-search div.content" ).datepicker('refresh');
 	if(selOrg != '' || selPlace != '') {
-		$('#main').addClass('full');
-	} else {
-		$('#main').removeClass('full');
+		switchToEventpage();
 	}
 
 	$('#org li a').each(function(index, value) {
@@ -153,7 +151,28 @@ $(function() {
 	});
 	$( ".expand-link" ).click(toggleEvent);
 	$( ".event h3" ).click(toggleEvent);
+	$( "#view-all" ).click(function(e) {
+		if($('#main').hasClass('full')) {
+			switchToHomepage();
+			selOrg = '';
+			selPlace = '';
+			selDate = '';
+			location.hash = '';
+		} else {
+			switchToEventpage();
+		}
+	});
 });
+
+function switchToHomepage() {
+	$('#main').removeClass('full');
+	$('#view-all')[0].innerText = 'View all events';
+}
+
+function switchToEventpage() {
+	$('#main').addClass('full');
+	$('#view-all')[0].innerText = 'Back to homepage';
+}
 
 $(window).hashchange( function(e){
 	if(location.hash != fullhash)
