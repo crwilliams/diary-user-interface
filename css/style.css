@@ -438,7 +438,7 @@ a,a:hover,a:visited {
 }
 
 .description {
-	margin-right: 35%;
+	margin-right: 12em;
 	text-align: justify;
 }
 
@@ -462,7 +462,7 @@ h3 {
 }
 
 .event-info {
-	width: 30%;
+	width: 10em;
 	float: right;
 }
 
