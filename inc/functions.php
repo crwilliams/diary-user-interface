@@ -335,8 +335,8 @@ function formatEvent($time, $date)
 		}
 		$str .= "</div>\n";
 	}
-	getEventPlaces($event, "Place");
-	getEventPlaces($event, "Additional Place Info");
+	$str .= getEventPlaces($event, "Place");
+	$str .= getEventPlaces($event, "Additional Place Info");
 	$organisers = getEventAgents($event, "Organiser");
 	if(count($organisers) > 0)
 	{
