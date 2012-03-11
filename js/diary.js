@@ -26,6 +26,11 @@ function processHash() {
 		}
 	}
 	setHash();
+
+	if(selOrg != '' || selPlace != '' || selDate != '') {
+		switchToEventpage();
+	}
+
 	filter();
 }
 
@@ -62,7 +67,7 @@ function filter() {
 	$('div.day').show();
 	$('div.event').hide();
 	$('div.event').each(function(index, value) {
-		if($(this).hasClass(selOrg) && $(this).hasClass(selPlace))
+		if($(this).hasClass(selOrg) && $(this).hasClass(selPlace) && ($(this).hasClass('featured') || $($(this)[0].parentNode.parentNode.parentNode).hasClass('full')))
 		{
 			$(this).show();
 		}
@@ -72,6 +77,10 @@ function filter() {
 		if($(this).children().filter(':visible').size() == 1)
 		{
 			$(this).hide();
+			if(!$($(this)[0].parentNode.parentNode).hasClass('full'))
+			{
+				availableDates.push(this.id);
+			}
 		}
 		else
 		{
@@ -79,10 +88,6 @@ function filter() {
 		}
 	});
 	$( "#calendar-search div.content" ).datepicker('refresh');
-	if(selOrg != '' || selPlace != '') {
-		switchToEventpage();
-	}
-
 	$('#org li a').each(function(index, value) {
 		$(value).removeClass('selected');
 	});
@@ -151,7 +156,7 @@ $(function() {
 	});
 	$( ".expand-link" ).click(toggleEvent);
 	$( ".event h3" ).click(toggleEvent);
-	$( "#view-all" ).click(function(e) {
+	$( ".view-events" ).click(function(e) {
 		if($('#main').hasClass('full')) {
 			switchToHomepage();
 			selOrg = '';
@@ -167,11 +172,13 @@ $(function() {
 function switchToHomepage() {
 	$('#main').removeClass('full');
 	$('#view-all')[0].innerText = 'View all events';
+	filter();
 }
 
 function switchToEventpage() {
 	$('#main').addClass('full');
 	$('#view-all')[0].innerText = 'Back to homepage';
+	filter();
 }
 
 $(window).hashchange( function(e){
