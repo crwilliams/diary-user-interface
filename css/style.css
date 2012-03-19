@@ -460,6 +460,8 @@ h3 {
 	font-size: 1.5em;
 	margin-right: 8em;
 	cursor: pointer;
+	margin-left: 1.1em;
+	text-indent: -1.1em;
 }
 
 .event-info {
@@ -469,6 +471,7 @@ h3 {
 
 .event-more {
 	display: none;
+	margin-left: 2em;
 }
 
 .event-links {
