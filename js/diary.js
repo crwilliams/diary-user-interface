@@ -133,7 +133,7 @@ function filter() {
 
 function toggleEvent(e) {
 	var eventDiv;
-	if(e.target.localName == 'a') {
+	if(e.target.localName == 'a' || e.target.localName == 'img') {
 		eventDiv = e.target.parentNode.parentNode;
 	} else {
 		eventDiv = e.target.parentNode;
