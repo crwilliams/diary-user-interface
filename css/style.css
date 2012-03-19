@@ -497,6 +497,10 @@ h3 {
 	cursor: pointer;
 }
 
+#view-all img {
+	padding-left: 5px;
+}
+
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
