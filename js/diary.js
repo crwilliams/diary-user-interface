@@ -196,7 +196,7 @@ function switchToHomepage() {
 
 function switchToEventpage() {
 	$('body').addClass('full');
-	$('#view-all')[0].innerHTML = "<img style='height:100%' src='img/arrowl.png' />Back to homepage";
+	$('#view-all')[0].innerHTML = "Back to homepage<img style='height:100%' src='img/arrowl.png' />";
 	filter();
 }
 
