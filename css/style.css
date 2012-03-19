@@ -459,6 +459,7 @@ h2 {
 h3 {
 	font-size: 1.5em;
 	margin-right: 8em;
+	cursor: pointer;
 }
 
 .event-info {
@@ -493,6 +494,7 @@ h3 {
 
 #view-all {
 	line-height: 100%;
+	cursor: pointer;
 }
 
 
