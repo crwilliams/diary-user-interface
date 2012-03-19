@@ -174,6 +174,7 @@ $(function() {
 	});
 	$( ".expand-link" ).click(toggleEvent);
 	$( ".event h3" ).click(toggleEvent);
+	$( ".event h3 img" ).click(toggleEvent);
 	$( ".view-events" ).click(function(e) {
 		if($('body').hasClass('full')) {
 			switchToHomepage();
@@ -189,13 +190,13 @@ $(function() {
 
 function switchToHomepage() {
 	$('body').removeClass('full');
-	$('#view-all')[0].innerText = 'View all events';
+	$('#view-all')[0].innerHTML = "View all events<img style='height:100%' src='img/arrowr.png' />";
 	filter();
 }
 
 function switchToEventpage() {
 	$('body').addClass('full');
-	$('#view-all')[0].innerText = 'Back to homepage';
+	$('#view-all')[0].innerHTML = "<img style='height:100%' src='img/arrowl.png' />Back to homepage";
 	filter();
 }
 

@@ -320,7 +320,7 @@ function formatEvent($time, $date)
 	global $eventcounter;
 	if(++$eventcounter <= 10) { $featured = "featured "; } else { $featured = ""; }
 	$str .= "<div class='event $featured".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."' itemscope itemtype='http://data-vocabulary.org/Event'>\n";
-	$str .= "\t<h3 itemprop='summary'>".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
+	$str .= "\t<h3 itemprop='summary'><img style='height:1em; padding:3px; position:relative; bottom:3px;' src='img/arrowr.png' />".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "foaf:homepage" ) )
 	{
 		$str .= " | <a href='".$event->get( "foaf:homepage" )."' itemprop='url'>View event</a>";

@@ -491,6 +491,10 @@ h3 {
 	display: none;
 }
 
+#view-all {
+	line-height: 100%;
+}
+
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
