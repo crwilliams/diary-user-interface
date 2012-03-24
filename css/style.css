@@ -247,11 +247,11 @@ div[role='main'] {
 }
 
 .box .header {
-	background: rgba(255,255,255,0.9);
+	background: rgba(255,255,255,0.95);
 }
 
 .box .content {
-	background: rgba(255,255,255,0.6);
+	background: rgba(255,255,255,0.8);
 }
 
 h1 {
