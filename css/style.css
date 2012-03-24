@@ -343,6 +343,9 @@ footer {
 	color: white;
 	font-size: 0.8em;
 	padding-bottom: 5px;
+	padding-top: 5px;
+	background-color: #333;
+	z-index: 1000;
 }
 
 footer ul {
@@ -463,6 +466,8 @@ h2, h3 {
 h2 {
 	font-size: 1em;
 	background: rgba(0,0,0,0.2);
+	padding: 3px 12px 3px 12px;
+	margin: 3px -12px 0 -12px;
 }
 
 h3 {
