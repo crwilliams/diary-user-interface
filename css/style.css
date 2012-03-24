@@ -327,6 +327,25 @@ h1 {
 	height: 160px;
 }
 
+.ui-datepicker-header .ui-datepicker-prev, .ui-datepicker-header .ui-datepicker-next {
+	overflow: hidden;
+}
+
+.ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e {
+	display: block;
+	height: 0px;
+	width: 7px;
+	padding: 14px 0 0 0;
+}
+
+.ui-icon-circle-triangle-w {
+	background: url('../img/prev.png') no-repeat;
+}
+
+.ui-icon-circle-triangle-e {
+	background: url('../img/next.png') no-repeat;
+}
+
 #department-search {
 	top: 345px;
 }
@@ -411,7 +430,7 @@ table.ui-datepicker-calendar {
 }
 
 .ui-datepicker-header .ui-datepicker-prev {
-	right: 36px;
+	right: 16px;
 }
 
 .ui-datepicker-header .ui-datepicker-next {
