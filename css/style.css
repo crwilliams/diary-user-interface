@@ -302,8 +302,8 @@ h1 {
 	top: 345px;
 	left: 16%;
 	right: 16%;
+	bottom -1px;
 	padding-left: 170px;
-	bottom: 11px;
 	z-index: 0;
 }
 
