@@ -504,6 +504,10 @@ h3 {
 	display: none;
 }
 
+.full img#bg {
+	display: none;
+}
+
 #view-all {
 	line-height: 100%;
 	cursor: pointer;
