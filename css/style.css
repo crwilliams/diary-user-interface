@@ -284,11 +284,13 @@ h1 {
 
 .sidebox .header {
 	height: 20px;
+	padding: 6px;
 }
 
 .sidebox .content {
 	height: 130px;
 	overflow-y: scroll;
+	padding: 6px;
 }
 
 .full .mainbox {
@@ -297,7 +299,7 @@ h1 {
 
 .mainbox {
 	position: absolute;
-	top: 330px;
+	top: 345px;
 	left: 16%;
 	right: 16%;
 	padding-left: 170px;
@@ -326,11 +328,11 @@ h1 {
 }
 
 #department-search {
-	top: 330px;
+	top: 345px;
 }
 
 #location-search {
-	top: 500px;
+	top: 530px;
 }
 
 footer {
@@ -406,11 +408,11 @@ table.ui-datepicker-calendar {
 }
 
 .ui-datepicker-header .ui-datepicker-prev {
-	right: 30px;
+	right: 36px;
 }
 
 .ui-datepicker-header .ui-datepicker-next {
-	right: 0px;
+	right: 6px;
 }
 
 .ui-datepicker-title, .ui-datepicker-header .ui-datepicker-prev, .ui-datepicker-header .ui-datepicker-next, #alldates {
@@ -438,9 +440,10 @@ a,a:hover,a:visited {
 
 #alldates {
 	position: absolute;
-	bottom: -3px;
+	bottom: -15px;
 	right: 0px;
-	margin: 0px;
+	margin-right: 6px;
+	font-size: 0.9em;
 }
 
 .description {
