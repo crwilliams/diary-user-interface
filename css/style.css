@@ -230,7 +230,7 @@ div[role='main'] {
 	position: relative;
 	margin: 0px auto;
 	max-width: 1280px;
-	min-width: 800px;
+	min-width: 850px;
 	min-height: 620px;
 }
 
@@ -314,7 +314,7 @@ h1 {
 .mainbox .content {
 	height: 100%;
 	overflow-y: scroll;
-	padding: 1em;
+	padding: 0 1em 1em 1em;
 }
 
 #calendar-search {
@@ -486,7 +486,7 @@ h2 {
 	font-size: 1em;
 	background: rgba(0,0,0,0.2);
 	padding: 3px 12px 3px 12px;
-	margin: 3px -12px 0 -12px;
+	margin: 0 -12px 0 -12px;
 }
 
 h3 {

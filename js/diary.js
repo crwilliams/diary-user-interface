@@ -127,7 +127,7 @@ function filter() {
 	} else {
 		var id = selDate.replace('-0', '-');
 		if(id[0] == '0') id = id.substring(1);
-		$('div#main div.content').scrollTop($('div#main div.content').scrollTop() + $('#'+id).position().top - 50);
+		$('div#main div.content').scrollTop($('div#main div.content').scrollTop() + $('#'+id).position().top - 71);
 	}
 }
 
