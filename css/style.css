@@ -509,6 +509,7 @@ h3 {
 }
 
 #view-all {
+	padding: 5px;
 	line-height: 100%;
 	cursor: pointer;
 }

@@ -190,13 +190,13 @@ $(function() {
 
 function switchToHomepage() {
 	$('body').removeClass('full');
-	$('#view-all')[0].innerHTML = "View all events<img style='height:30px' src='img/arrowr.png' />";
+	$('#view-all')[0].innerHTML = "View all events<img style='height:49px' src='img/chevron_large_right.png' />";
 	filter();
 }
 
 function switchToEventpage() {
 	$('body').addClass('full');
-	$('#view-all')[0].innerHTML = "Back to homepage<img style='height:30px' src='img/arrowl.png' />";
+	$('#view-all')[0].innerHTML = "Back to homepage<img style='height:49px' src='img/chevron_large_left.png' />";
 	filter();
 }
 
