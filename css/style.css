@@ -254,6 +254,14 @@ div[role='main'] {
 	background: rgba(255,255,255,0.8);
 }
 
+.lt-ie9 .box .header {
+	background-color: #FFF;
+}
+
+.lt-ie9 .box .content {
+	background-color: #CCC;
+}
+
 h1 {
 	display: inline;
 	padding: 6px;
@@ -488,6 +496,10 @@ h2 {
 	background: rgba(0,0,0,0.2);
 	padding: 3px 12px 3px 12px;
 	margin: 0 -12px 0 -12px;
+}
+
+.lt-ie9 h2 {
+	background-color: #999;
 }
 
 h3 {
