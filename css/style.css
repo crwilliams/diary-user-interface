@@ -398,6 +398,14 @@ footer a,footer a:hover,footer a:visited {
 	text-decoration: none;
 }
 
+.full #bottom-link {
+	height: 485px;
+}
+
+#bottom-link {
+	height: 270px;
+}
+
 .ui-datepicker-calendar td,.ui-datepicker-calendar th {
 	font-size: 0.8em;
 }
