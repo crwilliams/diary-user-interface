@@ -289,13 +289,15 @@ function getEventListings($events)
 function getEventListingsDay($dayevents, $date)
 {
 	$str = "";
+	$first = true;
 	foreach($dayevents as $time => $timeevents)
 	{
 		foreach($timeevents as $eventtime)
 		{
-			$str .= formatEvent($eventtime, $date);
+			$str .= formatEvent($eventtime, $date, $first);
 			$str .= getOrganisers($organisers, $eventtime->get("-event:time"));
 			$str .= getPlaces($places, $eventtime->get("-event:time"));
+			$first = false;
 		}
 	}
 	return $str;
@@ -306,7 +308,7 @@ $eventcounter = 0;
  * Format a single event.
  *
  */
-function formatEvent($time, $date)
+function formatEvent($time, $date, $firstInList=false)
 {
 	$str = "";
 	$event = $time->get("-event:time");
@@ -319,8 +321,13 @@ function formatEvent($time, $date)
 
 	global $eventcounter;
 	if(++$eventcounter <= 10) { $featured = "featured "; } else { $featured = ""; }
-	$str .= "<div class='event $featured".implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."' itemscope itemtype='http://data-vocabulary.org/Event'>\n";
-	$str .= "\t<h3 itemprop='summary'><img style='height:13px; padding:3px; position:relative; bottom:3px;' src='img/chevron_small_right.png' />".$event->label()."</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
+	$starts = "";
+	if( $time->has( "tl:start" ) && substr($time->getString("tl:start"), 0, 10) == $date )
+	{
+		$starts = " <span class='date'>(".formatTime($time->getString( "tl:start" ), $date).")</span>";
+	}
+	$str .= "<div class='event $featured".($firstInList?"first-event ":"").implode(" ", array_keys($organisers))." ".implode(" ", array_keys($places))."' itemscope itemtype='http://data-vocabulary.org/Event'>\n";
+	$str .= "\t<h3 itemprop='summary'><img style='height:13px; padding:3px; position:relative; bottom:3px;' src='img/chevron_small_right.png' />".$event->label()."$starts</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "foaf:homepage" ) )
 	{
 		$str .= " | <a href='".$event->get( "foaf:homepage" )."' itemprop='url'>View event</a>";

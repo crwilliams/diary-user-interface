@@ -522,6 +522,16 @@ h3 {
 	width: 10em;
 	float: right;
 }
+.event-info a {
+	font-weight: bold;
+}
+.event-info a:hover {
+	text-decoration: underline;
+}
+.event h3 .date {
+	font-size: small;
+	font-weight: normal;
+}
 
 .event-more {
 	display: none;
@@ -538,8 +548,13 @@ h3 {
 }
 
 .event {
+	border-top: dashed 1px #666666;
 	position: relative;
 }
+.first-event {
+	border-top: none;
+}
+
 
 .selected {
 	font-weight: bold;
