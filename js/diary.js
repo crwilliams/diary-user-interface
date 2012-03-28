@@ -138,11 +138,12 @@ function toggleEvent(e) {
 	} else {
 		eventDiv = e.target.parentNode;
 	}
-	if(eventDiv.children[1].children[0].innerText == 'Read more') {
-		eventDiv.children[1].children[0].innerText = 'Read less';
+	var readX = $(eventDiv.children[1].children[0]);
+	if( readX.html() == 'Read more') {
+		readX.html( 'Read less' );
 		$(eventDiv.children[2]).show();
 	} else {
-		eventDiv.children[1].children[0].innerText = 'Read more';
+		readX.html( 'Read more' );
 		$(eventDiv.children[2]).hide();
 	}
 	return false;
