@@ -221,9 +221,9 @@ td { vertical-align: top; }
 
 body {
 	font-family: Georgia;
-	overflow: hidden;
 	background: #333333;
 	height: 100%;
+	min-height: 732px;
 }
 
 div[role='main'] {
