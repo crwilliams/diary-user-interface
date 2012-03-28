@@ -36,6 +36,7 @@ function renderPage($title, $description, $header, $content, $footer)
   </header>
   <div role="main">
 	<img id='bg' src='img/background<?php echo $i ?>.jpg' alt='background image' />
+	<img id='altbg' src='img/altbackground.jpg' alt='background image' />
 <?php echo $content ?>
   </div>
   <footer>

@@ -234,12 +234,16 @@ div[role='main'] {
 	min-height: 620px;
 }
 
-#bg {
+#bg, #altbg {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	z-index: -1;
 	width: 100%;
+}
+
+#altbg {
+	display: none;
 }
 
 .box {
@@ -566,6 +570,10 @@ h3 {
 
 .full img#bg {
 	display: none;
+}
+
+.full img#altbg {
+	display: inline;
 }
 
 #view-all {
