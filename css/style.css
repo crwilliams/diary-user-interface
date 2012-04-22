@@ -389,6 +389,10 @@ footer li {
 	display: inline;
 }
 
+.lt-ie8 footer li {
+	margin: 5px;
+}
+
 footer li:before {
 	content: " | ";
 }
@@ -442,6 +446,10 @@ table.ui-datepicker-calendar {
 
 .ui-datepicker-calendar td.ui-datepicker-unselectable.ui-datepicker-other-month {
 	background-color: inherit;
+}
+
+.lt-ie8 .ui-datepicker-calendar td.ui-datepicker-unselectable.ui-datepicker-other-month {
+	background-color: #CCC;
 }
 
 .ui-datepicker-header .ui-datepicker-prev, .ui-datepicker-header .ui-datepicker-next {
@@ -584,6 +592,17 @@ h3 {
 
 #view-all img {
 	padding-left: 5px;
+}
+
+img.small-chevron {
+	height: 13px;
+	padding: 3px;
+	position: relative;
+	bottom: 3px;
+}
+
+.lt-ie8 img.small-chevron {
+	bottom: 0px;
 }
 
 
