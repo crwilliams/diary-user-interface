@@ -585,9 +585,14 @@ h3 {
 }
 
 #view-all {
+	position: relative;
 	padding: 5px;
 	line-height: 100%;
 	cursor: pointer;
+}
+
+.lt-ie8 #view-all {
+	bottom: 63px;
 }
 
 #view-all img {
