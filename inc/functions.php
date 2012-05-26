@@ -370,7 +370,7 @@ function formatEvent($time, $date, $firstInList=false)
 	if(count($speakers) > 0)
 	{
 		$str .= "\t\t<div class='speakers'>Speaker".((count($speakers) > 1) ? "s" : "").": ";
-		foreach(getEventAgents($event, "Speaker") as $speaker)
+		foreach($speakers as $speaker)
 		{
 			$str .= $speaker." ";
 		}
