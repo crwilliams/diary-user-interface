@@ -121,7 +121,7 @@ function getOptionTree($values, $id, $showAllString, $processOptions = null, $gr
 	$str .= "\t<li><a href='#' id='link-all-$id'>$showAllString</a></li>\n";
 	if($processOptions == null) {
 		foreach($values as $key => $name) {
-			$str .= "\t<li><a href='#' id='link-$key'>$name</a></li>\n";
+			$str .= "\t<li><a href='#' id='link-$key'>".htmlspecialchars($name)."</a></li>\n";
 		}
 	} else {
 		$str .= $processOptions($graph, $values);
@@ -148,7 +148,7 @@ function getOrganisationTreeOptions($graph, $values, $node = null, $depth = 0) {
 		for($i = 0; $i < $depth; $i++) {
 			$str .= "- ";
 		}
-		$str .= "<a href='#' id='link-$key'>".$d['name']."</a></li>\n";
+		$str .= "<a href='#' id='link-$key'>".htmlspecialchars($d['name'])."</a></li>\n";
 		$str .= getOrganisationTreeOptions($graph, $values, $d, $depth + 1);
 	}
 	return $str;
@@ -331,7 +331,7 @@ function formatEvent($time, $date, $firstInList=false)
 	$str .= "\t<h3 itemprop='summary'><img class='small-chevron' src='img/chevron_small_right.png' alt='' />".htmlspecialchars($event->label())."$starts</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "foaf:homepage" ) )
 	{
-		$str .= " | <a href='".$event->get( "foaf:homepage" )."' itemprop='url'>View event</a>";
+		$str .= " | <a href='".htmlspecialchars($event->get( "foaf:homepage" ))."' itemprop='url'>View event</a>";
 	}
 	$str .= "</div>\n";
 	$str .= "\t<div class='event-more' id='".$sid."'>\n";
@@ -446,18 +446,18 @@ function getPlaceLabel($place)
 		if(!preg_match('/^[0-9]+[A-Z] \/ [0-9]+$/', $label))
 		{
 			if(substr($place, 0, 34) == 'http://id.southampton.ac.uk/event/')
-				$str = $label;
+				$str = htmlspecialchars($label);
 			else
-				$str = "<a href='".$place."'>" . $label . "</a>";
+				$str = "<a href='".htmlspecialchars($place)."'>" . htmlspecialchars($label) . "</a>";
 		}
 	}
 	// If that fails, use any label.
 	if($str == "")
 	{
 		if(substr($place, 0, 34) == 'http://id.southampton.ac.uk/event/')
-			$str = $place->label();
+			$str = htmlspecialchars($place->label());
 		else
-			$str = "<a href='".$place."'>" . $place->label() . "</a>";
+			$str = "<a href='".htmlspecialchars($place)."'>" . htmlspecialchars($place->label()) . "</a>";
 	}
 	if($place->has("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within"))
 	{
@@ -497,11 +497,11 @@ function getEventAgents($event, $filter=null)
 		{
 			if($agent->has("foaf:homepage"))
 			{
-				$agents[] = "<a href='".$agent->get("foaf:homepage")."'>".$agent->label()."</a>";
+				$agents[] = "<a href='".htmlspecialchars($agent->get("foaf:homepage"))."'>".htmlspecialchars($agent->label())."</a>";
 			}
 			else
 			{
-				$agents[] = $agent->label();
+				$agents[] = htmlspecialchars($agent->label());
 			}
 		}
 	}
