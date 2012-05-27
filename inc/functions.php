@@ -305,6 +305,7 @@ function getEventListingsDay($dayevents, $date)
 }
 
 $eventcounter = 0;
+$eventdate = null;
 /**
  * Format a single event.
  *
@@ -321,7 +322,10 @@ function formatEvent($time, $date, $firstInList=false)
 	$sid = sid($time);
 
 	global $eventcounter;
-	if(++$eventcounter <= 10) { $featured = "featured "; } else { $featured = ""; }
+	global $eventdate;
+	$eventcounter++;
+	if($eventcounter <= 10 || $eventdate == $date) { $featured = "featured "; } else { $featured = ""; }
+	if($eventcounter <= 10) { $eventdate = $date; }
 	$starts = "";
 	if( $time->has( "tl:start" ) && substr($time->getString("tl:start"), 0, 10) == $date )
 	{
