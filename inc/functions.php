@@ -335,7 +335,7 @@ function formatEvent($time, $date, $firstInList=false)
 	$str .= "\t<h3 itemprop='summary'><img class='small-chevron' src='img/chevron_small_right.png' alt='' />".htmlspecialchars($event->label())."$starts</h3><div class='event-links'><a href='#' class='expand-link'>Read more</a>";
 	if( $event->has( "foaf:homepage" ) )
 	{
-		$str .= " | <a href='".htmlspecialchars($event->get( "foaf:homepage" ))."' itemprop='url'>View event</a>";
+		$str .= " | <a href='".htmlspecialchars($event->get( "foaf:homepage" ))."' itemprop='url' target='_blank'>View event</a>";
 	}
 	$str .= "</div>\n";
 	$str .= "\t<div class='event-more' id='".$sid."'>\n";
@@ -452,7 +452,7 @@ function getPlaceLabel($place)
 			if(substr($place, 0, 34) == 'http://id.southampton.ac.uk/event/')
 				$str = htmlspecialchars($label);
 			else
-				$str = "<a href='".htmlspecialchars($place)."'>" . htmlspecialchars($label) . "</a>";
+				$str = "<a href='".htmlspecialchars($place)."' target='_blank'>" . htmlspecialchars($label) . "</a>";
 		}
 	}
 	// If that fails, use any label.
@@ -461,7 +461,7 @@ function getPlaceLabel($place)
 		if(substr($place, 0, 34) == 'http://id.southampton.ac.uk/event/')
 			$str = htmlspecialchars($place->label());
 		else
-			$str = "<a href='".htmlspecialchars($place)."'>" . htmlspecialchars($place->label()) . "</a>";
+			$str = "<a href='".htmlspecialchars($place)."' target='_blank'>" . htmlspecialchars($place->label()) . "</a>";
 	}
 	if($place->has("http://data.ordnancesurvey.co.uk/ontology/spatialrelations/within"))
 	{
@@ -501,7 +501,7 @@ function getEventAgents($event, $filter=null)
 		{
 			if($agent->has("foaf:homepage"))
 			{
-				$agents[] = "<a href='".htmlspecialchars($agent->get("foaf:homepage"))."'>".htmlspecialchars($agent->label())."</a>";
+				$agents[] = "<a href='".htmlspecialchars($agent->get("foaf:homepage"))."' target='_blank'>".htmlspecialchars($agent->label())."</a>";
 			}
 			else
 			{
