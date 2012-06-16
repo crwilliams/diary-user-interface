@@ -213,7 +213,7 @@ function getOrganisers(&$organisers, $event)
 	}
 }
 
-function loadGraph(&$organisers, &$places, &$events)
+function getGraph()
 {
 	require_once( "/var/wwwsites/phplib/arc/ARC2.php" );
 	require_once( "/var/wwwsites/phplib/Graphite.php" );
@@ -223,6 +223,21 @@ function loadGraph(&$organisers, &$places, &$events)
 
 	$graph->ns( "event", "http://purl.org/NET/c4dm/event.owl#" );
 	$graph->ns( "tl", "http://purl.org/NET/c4dm/timeline.owl#" );
+	return $graph;
+}
+
+function loadEvents()
+{
+	foreach(getGraph()->allOfType("event:Event") as $event)
+	{
+		$events[] = $event;
+	}
+	return $events;
+}
+
+function loadGraph(&$organisers, &$places, &$events)
+{
+	$graph = getGraph();
 
 	foreach($graph->allOfType("event:Event") as $event)
 	{
@@ -387,6 +402,152 @@ function formatEvent($time, $date, $firstInList=false)
 	$str .= "\t\t<div style='clear:both'></div>\n";
 	$str .= "\t</div>\n";
 	$str .= "</div>\n";
+	return $str;
+}
+
+function renderICal($events)
+{
+	echo "BEGIN:VCALENDAR\n";
+	echo "VERSION:2.0\n";
+	echo "PRODID:-//hacksw/handcal//NONSGML v1.0//EN\n";
+	echo "X-WR-CALNAME:University of Southampton Events\n";
+	echo "X-WR-CALDESC:University of Southampton Events\n";
+	foreach($events as $event)
+	{
+		if($event->has("event:time"))
+		{
+			foreach($event->all("event:time") as $time)
+			{
+				echo formatEventICal($event, $time);
+			}
+		}
+	}
+	echo "END:VCALENDAR";
+}
+
+function fold($str)
+{
+	$str = str_replace(array("\r", "\n"), "", $str);
+	$str = preg_replace("/[^a-zA-Z0-9:;\/=_. -]/", "", $str);
+	if(strlen($str) < 72)
+	{
+		return $str."\n";
+	}
+	else
+	{
+		return substr($str, 0, 72)."\n ".fold(substr($str, 72));
+		
+	}
+}
+
+function formatDateICal($date)
+{
+	return substr(str_replace(array(":", "-", " "), array("", "", "T"), $date), 0, 15);
+}
+
+/**
+ * Format a single event, in iCal format
+ *
+ */
+function formatEventICal($event, $time)
+{
+	/*
+	$firststart = "Z";
+	if($event->has("event:time"))
+	{
+		foreach($event->all("event:time") as $time)
+		{
+			if($time->has("tl:at"))
+			{
+				//$eventstr .= fold("RDATE;VALUE=DATE;TZID=Europe/London:".formatDateICal($time->getString("tl:at")));
+				$date = formatDateICal($time->getString("tl:at"))."/P1D";
+				$eventstr .= fold("RDATE;VALUE=PERIOD;TZID=Europe/London:".$date);
+				$firststart = min($firststart, $date);
+			}
+			if($time->has("tl:start"))
+			{
+				if($time->has("tl:end"))
+				{
+					$date = formatDateICal($time->getString("tl:start"))."/".formatDateICal($time->getString("tl:end"));
+					$eventstr .= fold("RDATE;VALUE=PERIOD;TZID=Europe/London:".$date);
+					$firststart = min($firststart, $date);
+				}
+				else
+				{
+					//$eventstr .= fold("RDATE;VALUE=DATE-TIME;TZID=Europe/London:".formatDateICal($time->getString("tl:start")));
+					$date = formatDateICal($time->getString("tl:start"))."/PT1H";
+					$eventstr .= fold("RDATE;VALUE=PERIOD;TZID=Europe/London:".$date);
+					$firststart = min($firststart, $date);
+				}
+			}
+		}
+	}
+	else
+	{
+		return "";
+	}
+	*/
+
+	if($time->has("tl:at"))
+	{
+		$date = formatDateICal($time->getString("tl:at"))."/P1D";
+	}
+	if($time->has("tl:start"))
+	{
+		if($time->has("tl:end"))
+		{
+			$date = formatDateICal($time->getString("tl:start"))."/".formatDateICal($time->getString("tl:end"));
+			if(strlen($date) == 31 && substr($date, 9, 6) == "000000" && substr($date, 25, 6) == "000000")
+			{
+				$date = substr($date, 0, 8)."/".substr($date, 16, 8);
+			}
+		}
+		else
+		{
+			$date = formatDateICal($time->getString("tl:start"))."/PT1H";
+		}
+	}
+
+	$str  = "BEGIN:VEVENT\n";
+	$str .= fold("UID:".(string)($time));
+	$str .= fold("SUMMARY:".$event->label());
+	if( $event->has( "dct:description" ) )
+	{
+		$str .= fold("DESCRIPTION:".$event->getString( "dct:description" ));
+	}
+	//$str .= "GEO:".$event->label()."\n";
+	if( $event->has( "event:place" ) )
+	{
+		foreach( $event->all( "event:place" ) as $place )
+		{
+			//echo $place->dump();
+			$str .= fold("LOCATION:".$place->label());
+		}
+	}
+	if( $event->has( "foaf:homepage" ) )
+	{
+		$str .= fold("URL:".$event->get( "foaf:homepage" ));
+	}
+	//$str .= "ORGANIZER:".$event->label()."\n";
+	$date = explode("/", $date);
+	$str .= fold("DTSTART;TZID=Europe/London:".$date[0]);
+	if($date[1][0] == 'P')
+	{
+		$str .= fold("DURATION:".$date[1]);
+	}
+	else
+	{
+		if(strlen($date[1]) == 8)
+		{
+			$t = new DateTime(substr($date[1], 0, 4).'/'.substr($date[1], 4, 2).'/'.substr($date[1], 6, 2));
+			$t->add('P1D');
+			$date[1] = $t->format('Ymd');
+			echo "____";
+		}
+		$str .= fold("DTEND;TZID=Europe/London:".$date[1]);
+	}
+	//$str .= $eventstr;
+	$str .= "END:VEVENT\n";
 	return $str;
 }
 
