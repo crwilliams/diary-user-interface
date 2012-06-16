@@ -267,7 +267,9 @@ function loadGraph(&$organisers, &$places, &$events)
 	foreach($events as $date => $dayevents)
 	{
 		if($date < date('Y-m-d'))
+		{
 			continue;
+		}
 		//echo "<div class='day'>\n";
 		//echo "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
 		ksort($dayevents);
@@ -292,7 +294,9 @@ function getEventListings($events)
 	foreach($events as $date => $dayevents)
 	{
 		if($date < date('Y-m-d'))
+		{
 			continue;
+		}
 		$str .= "<div class='day' id='".date('j-n-Y', strtotime($date))."'>\n";
 		$str .= "\t<h2>".date('l jS F Y', strtotime($date))."</h2>\n";
 		ksort($dayevents);
