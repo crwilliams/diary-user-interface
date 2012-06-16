@@ -215,8 +215,8 @@ function getOrganisers(&$organisers, $event)
 
 function getGraph()
 {
-	require_once( "/var/wwwsites/phplib/arc/ARC2.php" );
-	require_once( "/var/wwwsites/phplib/Graphite.php" );
+	require_once( "/var/wwwsites/tools/arc2/ARC2.php" );
+	require_once( "/var/wwwsites/tools/Graphite/Graphite.php" );
 	$graph = Graphite::thaw( "/home/diary/var/data.php" );
 	
 	$graph->cacheDir("/home/diary/diary.soton.ac.uk/cache");
